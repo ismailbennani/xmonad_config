@@ -228,19 +228,39 @@ def writewirelessxpm(lvl, col):
 
     return writexpm(url, wireless_xpm[lvl], col)
 
-import sys, subprocess, wireless
+def get_wireless_interface():
+    interfaces = subprocess.getoutput("ls /sys/class/net").split()
+    interfaces = [i for i in interfaces if i[:1] == "w"]
+    print("Wireless interfaces:", interfaces, file=sys.stderr)
 
-w = wireless.Wireless()
+    chosen_i = None
+    connected_to = None
+    enabled = None
 
-enabled = w.power()
-print("Enabled: %s" % enabled, file=sys.stderr)
+    for i in interfaces:
+        isactive = subprocess.getoutput("cat /sys/class/net/%s/operstate" % i) == "up"
+        isenabled = subprocess.getoutput("cat /sys/class/net/%s/link_mode" % i) == "1"
+        if isactive:
+            chosen_i = i
+            enabled = True
+            connected_to = subprocess.getoutput("iw dev %s info | grep ssid" % i).strip()[5:]
+        elif isenabled and choosen_i is None:
+            chosen_i = i
+            enabled = i
+
+    return chosen_i, connected_to, enabled
+
+import sys, subprocess
+
+interface, name, enabled = get_wireless_interface()
+print("Chosen interface:", interface, file=sys.stderr)
+print("Enabled:", enabled, file=sys.stderr)
 
 if not enabled:
     name = ""
     lvl  = 0
     col  = "red"
 else:
-    name = w.current()
     print("Network: %s" % name, file=sys.stderr)
 
     col = "white"

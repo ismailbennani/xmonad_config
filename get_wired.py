@@ -26,7 +26,7 @@ import sys, subprocess
 
 def get_wired_interface():
     interfaces = subprocess.getoutput("ls /sys/class/net").split()
-    interfaces = [i for i in interfaces if i[:2] == "en"]
+    interfaces = [i for i in interfaces if i[:1] == "e"]
     print("Wired interfaces:", interfaces, file=sys.stderr)
 
     for i in interfaces:
