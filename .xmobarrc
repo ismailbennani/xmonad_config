@@ -1,0 +1,61 @@
+Config
+  { font = "xft:DejaVu Sans Mono:size=12:antialias=true"
+  , bgColor      = "#000000"
+  , fgColor      = "#ffffff"
+  , position     = Top
+  , border       = BottomB
+  , borderColor  = "#80c0ff"
+  , lowerOnStart = True
+  , commands =
+      -- network activity monitor (dynamic interface resolution)
+      [ Run DynNetwork     [ "--template" , "<icon=download2.xpm/> <rxvbar> <rx> · <icon=upload2.xpm/> <txvbar> <tx>"
+                           , "--Low"      , "50000000"       -- units: B/s
+                           , "--High"     , "50000"       -- units: B/s
+                           , "--low"      , "green"
+                           , "--normal"   , "orange"
+                           , "--high"     , "red"
+                           , "-S"         , "true"
+                           , "-m"         , "7"
+                           , "-a"         , "l"
+                           ] 10
+
+      -- cpu activity monitor
+      , Run MultiCpu       [ "--template" , "<icon=cpu.xpm/> <autovbar>"
+                           , "--Low"      , "50"         -- units: %
+                           , "--High"     , "85"         -- units: %
+                           , "--low"      , "green"
+                           , "--normal"   , "orange"
+                           , "--high"     , "red"
+                           ] 10
+
+      -- memory usage monitor
+      , Run Memory         [ "--template" ,"<icon=ram.xpm/> <usedvbar>"
+                           , "--Low"      , "20"        -- units: %
+                           , "--High"     , "90"        -- units: %
+                           , "--low"      , "green"
+                           , "--normal"   , "orange"
+                           , "--high"     , "red"
+                           ] 10
+
+      -- time and date indicator
+      --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
+      , Run Date           "<fc=#ABABAB>%a %d %b - %T</fc>" "date" 10
+
+      , Run Date           "<fc=#ABABAB>%T</fc>" "time" 10
+
+      -- keyboard layout indicator
+      , Run Kbd            [ ("us", "<action=xdotool key Control_L+Control_R><fc=#ABABAB>[US]</fc></action>")
+                           , ("fr", "<action=xdotool key Control_L+Control_R><fc=#ABABAB>[FR]</fc></action>") ]
+
+      , Run Com "/bin/bash" ["-c", "~/.xmonad/get_volume.sh"    ] "volume" 5
+      , Run Com "/bin/bash" ["-c", "~/.xmonad/get_workspaces.py"] "workspaces" 5
+      , Run Com "/bin/bash" ["-c", "~/.xmonad/get_wireless.py"  ] "wireless" 10
+      , Run Com "/bin/bash" ["-c", "~/.xmonad/get_bluetooth.py" ] "bluetooth" 10
+      , Run Com "/bin/bash" ["-c", "~/.xmonad/get_volume.py"    ] "volume" 10
+      , Run Com "/bin/bash" ["-c", "~/.xmonad/get_battery.py"   ] "battery" 10
+      , Run Com "/bin/bash" ["-c", "~/.xmonad/get_wired.py"     ] "wired" 10
+      , Run Mpris2 "spotify" ["-t", "<artist> - [<composer>] <title>"] 10
+      ]
+  , sepChar =  "%"
+  , alignSep = "}{"
+}
