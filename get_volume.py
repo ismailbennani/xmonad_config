@@ -68,24 +68,29 @@ def writesoundxpm(lvl, col):
 
 import sys, subprocess
 
-volcmd = "pamixer --get-volume"
+volcmd = "amixer -D pulse sget Master | grep 'Front Left:'"
 print("> " + volcmd, file=sys.stderr)
 
-vollvl = int(subprocess.getoutput(volcmd)) # [0,100]
-print(vollvl, end=" ", file=sys.stderr)
-print(vollvl, file=sys.stderr)
+cmdout = subprocess.getoutput(volcmd).strip()
 
-volmutecmd = "pamixer --get-mute"
-print("> " + volmutecmd, file=sys.stderr)
+print("\t%s" % cmdout, file=sys.stderr)
+
+first_brack = cmdout.find("[")
+second_brack = cmdout.find("]", first_brack)
+vollvl = int(cmdout[first_brack+1:second_brack-1])
+print("Level:", vollvl, file=sys.stderr)
+
+third_brack = cmdout.find("[", second_brack)
+fourth_brack = cmdout.find("]", third_brack)
+muted = cmdout[third_brack+1:fourth_brack] == "off"
+print("Muted:", muted, file=sys.stderr)
 
 # pamixer --get-mute returns false when sound is on and true otherwise ..
 if vollvl == 0:
     col = "red"
 else:
     vollvl = vollvl // 50 # [0,2]
-    muted = subprocess.getoutput(volmutecmd) == "true"
     col = "red" if muted else "white"
-print(muted, file=sys.stderr)
 
 out = "<icon=%s/>"
 toggle_vol = "<action=`xdotool key XF86AudioMute` button=1>%s</action>"
