@@ -244,7 +244,7 @@ def get_wireless_interface():
             chosen_i = i
             enabled = True
             connected_to = subprocess.getoutput("iw dev %s info | grep ssid" % i).strip()[5:]
-        elif isenabled and choosen_i is None:
+        elif isenabled and chosen_i is None:
             chosen_i = i
             enabled = i
 
