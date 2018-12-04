@@ -53,9 +53,13 @@ myFilemgr  = "nautilus"
 myLock     = "i3lock-fancy -p"
 myOnboard  = "onboard"
 -- }}}
--- volume {{{
+-- utils {{{
 showBar str = do
     dzenConfig (timeout 1 >=> onCurr xScreen) str
+
+capitalized :: String -> String
+capitalized (head:tail) = toUpper head : map toLower tail
+capitalized [] = []
 -- }}}
 -- convenient actions {{{
 centerMouse () = warpToWindow (1/2) (1/2)
@@ -82,7 +86,7 @@ dmwitConfig nScreens = docks $ def {
     keys                    = \c -> keyBindings c <+> azertyKeys c <+> keys defaultConfig c,
     layoutHook              = magnifierOff $ avoidStruts (GridRatio 0.9) ||| smartBorders Full,
     manageHook              = ( isFullscreen --> doFullFloat )
-                          <+> floatAll["Shutter", myDropdown]
+                          <+> floatAll["Shutter", capitalized myDropdown]
                           <+> manageHook defaultConfig
                           <+> manageDocks,
     logHook                 = allPPs (),
