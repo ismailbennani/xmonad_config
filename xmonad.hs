@@ -1,1 +1,1 @@
-contrib_config.hs
+config.hs

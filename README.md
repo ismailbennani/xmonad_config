@@ -59,11 +59,12 @@ Log out from the current session and log back into XMonad.
   - `guake` ([github](https://github.com/Guake/guake)): drop-down terminal
   - `playerctl` ([github](https://github.com/acrisci/playerctl)): media players control
   - `onboard` ([website](https://launchpad.net/onboard)): onscreen keyboard
+  - `i3lock-fancy` ([github](https://github.com/meskarune/i3lock-fancy)): lock screen
 
 APT command to install (almost) everything
 
 ```
-apt install terminator suckless-tools xdotool xcompmgr feh touchegg guake playerctl onboard
+apt install terminator suckless-tools xdotool xcompmgr feh touchegg guake playerctl onboard i3lock-fancy
 ```
 
 `atom` installation [here](https://atom.io/)
@@ -71,3 +72,5 @@ apt install terminator suckless-tools xdotool xcompmgr feh touchegg guake player
 `libinput-gestures` installation [here](https://github.com/bulletmark/libinput-gestures)
 
 You also need to put `touchegg.conf` in `~/.config/touchegg`.
+
+You can change the applications you use in `config.hs` (under "applications to use" after the import section). Eg. if you want to use `chromium` instead of `firefox` replace `myBrowser = "firefox"` with `myBrowser = "chromium"`.
