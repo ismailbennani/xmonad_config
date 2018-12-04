@@ -70,7 +70,10 @@ dmwitConfig nScreens = docks $ def {
     modMask                 = mod4Mask,
     keys                    = \c -> keyBindings c <+> azertyKeys c <+> keys defaultConfig c,
     layoutHook              = magnifierOff $ avoidStruts (GridRatio 0.9) ||| smartBorders Full,
-    manageHook              = floatAll["Shutter", "Guake"],
+    manageHook              = ( isFullscreen --> doFullFloat )
+                          <+> floatAll["Shutter", "Guake"]
+                          <+> manageHook defaultConfig
+                          <+> manageDocks,
     logHook                 = allPPs (),
     startupHook             = setDefaultCursor xC_left_ptr >> refresh
                            >> mapM_ (spawnHere . xmobarCommand) [0 .. nScreens-1]

@@ -10,13 +10,13 @@ All the files in this repo should go under `~/.xmonad`.
 
 (Installation procedure tested on a fresh install of Ubuntu 18.10)
 
-### `xmonad`
+### `xmonad` ([website](https://xmonad.org/))
 
 ```
-apt install xmonad suckless-tools
+apt install xmonad
 ```
 
-### `xmobar`
+### `xmobar` ([github](https://github.com/jaor/xmobar))
 
 Requirements
 
@@ -46,3 +46,28 @@ git clone https://github.com/ismailbennani/xmonad_config.git .xmonad
 ```
 
 Log out from the current session and log back into XMonad.
+
+* Optional: Applications I use in the configuration file:
+
+  - `terminator` ([website](https://launchpad.net/terminator)): terminal emulator
+  - `xdotool` ([github](https://github.com/jordansissel/xdotool)): fake keyboard/mouse input (used in `xmobad` and `libinput-gestures`)
+  - `suckless-tools` ([website](http://tools.suckless.org/)): provides `dmenu`, a command launcher used by `xmonad` (super+p shortcut)
+  - `gmrun` ([website](https://sourceforge.net/projects/gmrun/)): another command launcher (super+shift+p shortcut)
+  - `xcompmgr` ([gitlab](https://gitlab.freedesktop.org/xorg/app/xcompmgr)): composition manager
+  - `feh` ([website](https://feh.finalrewind.org/)): set wallpaper
+  - `touchegg` ([github](https://github.com/JoseExposito/touchegg)) and `libinput-gestures` ([github](https://github.com/bulletmark/libinput-gestures)): touchpad and touchscreen gestures
+  - `guake` ([github](https://github.com/Guake/guake)): drop-down terminal
+  - `playerctl` ([github](https://github.com/acrisci/playerctl)): media players control
+  - `onboard` ([website](https://launchpad.net/onboard)): onscreen keyboard
+
+APT command to install (almost) everything
+
+```
+apt install terminator suckless-tools xdotool xcompmgr feh touchegg guake playerctl onboard
+```
+
+`atom` installation [here](https://atom.io/)
+
+`libinput-gestures` installation [here](https://github.com/bulletmark/libinput-gestures)
+
+You also need to put `touchegg.conf` in `~/.config/touchegg`.
