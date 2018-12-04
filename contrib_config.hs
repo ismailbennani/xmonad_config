@@ -79,7 +79,7 @@ dmwitConfig nScreens = docks $ def {
                            >> mapM_ (spawnHere . xmobarCommand) [0 .. nScreens-1]
                            >> spawnOnce "xcompmgr -fF -D 1 -I 0.56 -O 0.6"
                            >> spawnOnce "~/.xmonad/set_display.sh"
-                           >> spawnOnce "feh --bg-scale ~/Documents/perso/abs_wallpaper.jpg"
+                           >> spawnOnce "feh --bg-scale ~/.xmonad/wallpaper.jpg"
                            >> spawnOnce "touchegg"
                            >> spawnOnce "libinput-gestures -c ~/.xmonad/libgestures.conf"
                            >> spawnOnce "guake"
