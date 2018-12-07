@@ -85,7 +85,7 @@ dmwitConfig nScreens = docks $ def {
     focusedBorderColor      = bright,
     modMask                 = mod4Mask,
     keys                    = \c -> keyBindings c <+> azertyKeys c <+> keys defaultConfig c,
-    layoutHook              = magnifierOff $ avoidStruts (GridRatio 0.9) ||| smartBorders Full,
+    layoutHook              = magnifierOff $ avoidStruts (GridRatio 0.9) ||| noBorders Full,
     manageHook              = ( isFullscreen --> doFullFloat )
                           <+> floatAll["Shutter", capitalized myDropdown]
                           <+> manageHook defaultConfig
